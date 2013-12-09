@@ -1,0 +1,10 @@
+- hosts: neosavvy
+
+  tasks:
+    - name: install nginx
+      action: apt pkg=nginx state=present
+    - name: copy the sites-available template
+      copy: src=templates/ dest=/etc/nginx/
+    - name: enable the neosavvy-proxy
+      file: src=/etc/nginx/sites-available/neosavvy-proxy dest=/etc/nginx/sites-enabled/neosavvy-proxy state=link
+#http://www.ansibleworks.com/docs/modules.html#copy

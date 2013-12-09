@@ -1,0 +1,10 @@
+server {
+	listen 80;
+        #server_name www.neosavvy.com;
+
+        location / {
+            autoindex  on;
+            root /opt/www.neosavvy.com/;
+        }
+
+}
