@@ -1,4 +1,4 @@
-- hosts: neosavvy
+- hosts: proxy
 
   tasks:
     - name: install nginx

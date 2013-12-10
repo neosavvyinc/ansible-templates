@@ -1,6 +1,6 @@
 server {
 	listen 80;
-        #server_name www.neosavvy.com;
+        server_name shiva.neosavvy.com;
 
         location / {
             autoindex  on;
