@@ -7,4 +7,5 @@
       copy: src=templates/ dest=/etc/nginx/
     - name: enable the neosavvy-proxy
       file: src=/etc/nginx/sites-available/neosavvy-proxy dest=/etc/nginx/sites-enabled/neosavvy-proxy state=link
-#http://www.ansibleworks.com/docs/modules.html#copy
+    - name: restart nginx
+      action: service name=nginx state=restarted

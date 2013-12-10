@@ -8,3 +8,30 @@ server {
         }
 
 }
+server {
+	listen 80;
+        server_name vm1.neosavvy.com;
+
+        location / {
+	    proxy_pass http://vm1.neosavvy.local;
+        }
+
+}
+server {
+	listen 80;
+        server_name vm2.neosavvy.com;
+
+        location / {
+	    proxy_pass http://vm2.neosavvy.local;
+        }
+
+}
+server {
+	listen 80;
+        server_name vm2.neosavvy.com;
+
+        location / {
+	    proxy_pass http://vm2.neosavvy.local;
+        }
+
+}
