@@ -5,6 +5,8 @@
       action: apt pkg=nginx state=present
     - name: copy the sites-available template
       copy: src=templates/ dest=/etc/nginx/
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
     - name: enable the neosavvy-proxy
       file: src=/etc/nginx/sites-available/vm-host-default dest=/etc/nginx/sites-enabled/vm-host-default state=link
     - name: disable the default from enabled 
