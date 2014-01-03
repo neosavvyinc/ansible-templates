@@ -1,0 +1,8 @@
+server {
+	server_name wiki.neosavvy.local;
+        location / {
+            autoindex  on;
+            root /opt/mediawiki/;
+        }
+
+}

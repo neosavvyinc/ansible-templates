@@ -1,0 +1,29 @@
+- hosts: 192.168.1.81
+
+  tasks:
+    - name: install tar
+      apt: pkg=tar state=present
+
+    - name: install jenkins key for apt
+      apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+    
+    - name: add the jenkins deb repo
+      apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/' state=present
+
+    - name: install jenkins
+      apt: pkg=jenkins state=present
+
+    - name: make sure jenkins has started
+      service: name=jenkins state=started
+
+    - name: download sbt
+      get_url: url=http://repo.scala-sbt.org/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.13.1/sbt.tgz dest=/opt/
+ 
+    - name: download scala
+      get_url: url=http://www.scala-lang.org/files/archive/scala-2.10.3.tgz dest=/opt
+    
+    - name: unarchive sbt
+      command: tar -zxvf /opt/sbt.tgz -C /opt/
+
+    - name: unarchive scala
+      command: tar -zxvf /opt/scala-2.10.3.tgz -C /opt

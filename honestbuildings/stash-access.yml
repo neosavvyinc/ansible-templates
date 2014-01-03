@@ -1,0 +1,8 @@
+- hosts: honestbuildings
+
+  tasks:
+    - name: copy the id_rsa.pub and id_rsa to each machine's .ssh dir
+      copy: src=/root/.ssh/id_rsa dest=/root/.ssh/
+    
+    - name: copy the id_rsa.pub and id_rsa to each machine's .ssh dir
+      copy: src=/root/.ssh/id_rsa.pub dest=/root/.ssh/

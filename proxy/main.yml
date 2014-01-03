@@ -1,0 +1,15 @@
+- hosts: proxy
+
+  tasks:
+    - name: install nginx
+      action: apt pkg=nginx state=present
+    - name: install nginx debug symbols
+      action: apt pkg=nginx-extras-dbg state=present
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
+    - name: copy the sites-available template
+      copy: src=templates/ dest=/etc/nginx/
+    - name: enable the neosavvy-proxy
+      file: src=/etc/nginx/sites-available/neosavvy-proxy dest=/etc/nginx/sites-enabled/neosavvy-proxy state=link
+    - name: restart nginx
+      action: service name=nginx state=restarted

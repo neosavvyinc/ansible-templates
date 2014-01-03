@@ -1,0 +1,41 @@
+- hosts: neosavvy-util
+
+  tasks:
+    - name: install nginx
+      action: apt pkg=nginx state=present
+    - name: copy the sites-available template
+      copy: src=templates/ dest=/etc/nginx/
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
+    - name: enable the neosavvy-util
+      file: src=/etc/nginx/sites-available/neosavvy-util dest=/etc/nginx/sites-enabled/neosavvy-util state=link
+    - name: enable the neosavvy-wiki
+      file: src=/etc/nginx/sites-available/neosavvy-wiki dest=/etc/nginx/sites-enabled/neosavvy-wiki state=link
+    - name: disable the default from enabled 
+      file: dest=/etc/nginx/sites-enabled/default state=absent
+    - name: copy the simple index site
+      copy: src=site/neosavvy-util dest=/opt/
+    - name: copy the simple index site
+      copy: src=site/mediawiki dest=/opt/
+    - name: restart nginx
+      action: service name=nginx state=restarted
+    - name: install mediawiki
+      action: apt pkg=mediawiki state=present
+    - name: install imagemagick
+      action: apt pkg=imagemagick state=present
+    - name: install mysql
+      action: apt pkg=mysql-server state=present
+    - name: install python 
+      action: apt pkg=python state=present
+    - name: install pip
+      action: apt pkg=python-pip state=absent
+    - name: install php5
+      action: apt pkg=php5 state=present
+    - name: install python-mysqldb
+      action: apt pkg=python-mysqldb state=present
+    - name: create wikidb
+      mysql_db: name=wikidb state=present
+    - name: create wikidb user
+      mysql_user: name=wikiuser password=modernknowledge priv=wikidb.*:ALL state=present
+
+

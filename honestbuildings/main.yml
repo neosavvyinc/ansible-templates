@@ -1,0 +1,50 @@
+- hosts: honestbuildings
+
+  tasks:
+    - name: install pycurl
+      action: apt pkg=python-pycurl state=present
+
+    - name: install nginx
+      action: apt pkg=nginx state=present
+
+    - name: copy the sites-available template
+      copy: src=templates/ dest=/etc/nginx/
+
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
+
+    - name: enable the neosavvy-proxy
+      file: src=/etc/nginx/sites-available/vm-host-default dest=/etc/nginx/sites-enabled/vm-host-default state=link
+
+    - name: disable the default from enabled 
+      file: dest=/etc/nginx/sites-enabled/default state=absent
+
+    - name: copy the simple index site
+      copy: src=site/ dest=/opt/vm-host-default-site/
+
+    - name: restart nginx
+      action: service name=nginx state=restarted
+
+    - name: add java repository
+      apt_repository: repo='ppa:webupd8team/java'
+
+    - name: accept java license
+      command: echo deb confshared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+
+    - name: set java license as seen 
+      command: echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+
+    - name: install java
+      action: apt pkg=oracle-java7-installer state=present
+
+    - name: update-java-alternatives
+      command: update-java-alternatives -s java-7-oracle
+
+    - name: install curl
+      action: apt pkg=curl state=present
+
+    - name: install git
+      action: apt pkg=git state=present
+
+    - name: install nmap
+      action: apt pkg=nmap state=present

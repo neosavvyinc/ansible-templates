@@ -1,0 +1,14 @@
+- hosts: 192.168.1.72
+
+  tasks:
+    - name: install jenkins key for apt
+      apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+    
+    - name: add the jenkins deb repo
+      apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/' state=present
+
+    - name: install jenkins
+      apt: pkg=jenkins state=present
+
+    - name: make sure jenkins has started
+      service: name=jenkins state=started
