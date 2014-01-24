@@ -15,8 +15,8 @@
       file: dest=/etc/nginx/sites-enabled/default state=absent
     - name: copy the simple index site
       copy: src=site/neosavvy-util dest=/opt/
-    - name: copy the simple index site
-      copy: src=site/mediawiki dest=/opt/
+    - name: link /opt/mediawiki to /var/lib/mediawiki
+      file: src=/var/lib/mediawiki dest=/opt/mediawiki state=link
     - name: restart nginx
       action: service name=nginx state=restarted
     - name: install mediawiki
