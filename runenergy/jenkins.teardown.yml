@@ -1,0 +1,14 @@
+- hosts: honestbuildings
+
+  tasks:
+    - name: make sure jenkins has stopped
+      service: name=jenkins state=stopped
+    
+    - name: remove jenkins
+      apt: pkg=jenkins state=absent
+    
+    - name: remove the jenkins deb repo
+      apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/' state=absent
+
+#    - name: remove jenkins key for apt
+#      apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=absent
