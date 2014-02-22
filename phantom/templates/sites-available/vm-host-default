@@ -12,7 +12,12 @@ server {
 	server_name api.phantom.neosavvy.local;
         location / {
 		proxy_pass http://localhost:9090/;
+		client_max_body_size 2M;
         }
+
+	location /images {
+		root /phantom/;
+	}
 
 }
 

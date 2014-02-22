@@ -1,23 +1,26 @@
-- hosts: honestbuildings
+- hosts: runenergy
 
   tasks:
     - name: install tar
       get_url: url=http://nodejs.org/dist/v0.10.23/node-v0.10.23-linux-x64.tar.gz dest=/tmp/node.tar.gz
 
-    - name: untar
-      action: command tar zxvf /tmp/node.tar.gz -C /opt/
+    - name: install python software properties
+      apt: pkg=python-software-properties state=present
 
-    - name: symlink the /opt/node directory to the untar'd one
-      file: src=/opt/node-v0.10.23-linux-x64 dest=/opt/node state=link
+    - name: add chris lea node repo
+      apt_repository: repo='ppa:chris-lea/node.js'
+
+    - name: install node
+      apt: pkg=nodejs state=present update_cache=yes
+
+    - name: install fontconfig
+      apt: pkg=fontconfig state=present
 
     - name: add grunt-cli
       npm: name=grunt-cli global=yes
 
-    - name: install ruby
-      apt: pkg=ruby state=present
+    - name: add karma
+      npm: name=karma global=yes
 
-    - name: install rubygem
-      apt: pkg=rubygems state=present
-
-    - name: install sass
-      gem: name=sass version=3.2.12 state=present
+    - name: add phantom js
+      npm: name=phantomjs global=yes

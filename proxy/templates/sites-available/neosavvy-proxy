@@ -57,6 +57,7 @@ server {
         server_name api.phantom.neosavvy.com;
 
         location / {
+	    client_max_body_size 2M;
 	    proxy_pass http://api.phantom.neosavvy.local;
         }
 
@@ -85,5 +86,13 @@ server {
 
         location / {
 	    proxy_pass http://ci.honestbuildings.neosavvy.local;
+        }
+}
+server {
+	listen 80;
+        server_name ci.runenergy.neosavvy.com;
+
+        location / {
+	    proxy_pass http://ci.runenergy.neosavvy.local;
         }
 }

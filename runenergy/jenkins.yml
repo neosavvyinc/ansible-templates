@@ -1,4 +1,4 @@
-- hosts: 192.168.1.75
+- hosts: 192.168.1.76
 
   tasks:
     - name: install tar

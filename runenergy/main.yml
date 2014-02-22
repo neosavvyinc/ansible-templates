@@ -25,21 +25,6 @@
     - name: restart nginx
       action: service name=nginx state=restarted
 
-    - name: add java repository
-      apt_repository: repo='ppa:webupd8team/java'
-
-    - name: accept java license
-      command: echo deb confshared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-
-    - name: set java license as seen 
-      command: echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-
-    - name: install java
-      action: apt pkg=oracle-java7-installer state=present
-
-    - name: update-java-alternatives
-      command: update-java-alternatives -s java-7-oracle
-
     - name: install curl
       action: apt pkg=curl state=present
 
@@ -48,3 +33,22 @@
 
     - name: install nmap
       action: apt pkg=nmap state=present
+
+    # MySQL
+
+    - name: python mysqldb
+      action: apt pkg=python-mysqldb state=present
+
+    - name: mysql client
+      apt: pkg=mysql-client state=present
+
+    - name: mysql client lib
+      apt: pkg=libmysqlclient-dev state=present
+
+    - name: install mysql-server
+      action: apt name=mysql-server
+    - name: create development mysql
+      mysql_db: name=runenergy_biogasdata_development state=present
+    
+    - name: create test mysql
+      mysql_db: name=runenergy_biogasdata_test state=present
