@@ -37,5 +37,5 @@
       mysql_db: name=wikidb state=present
     - name: create wikidb user
       mysql_user: name=wikiuser password=modernknowledge priv=wikidb.*:ALL state=present
-
-
+    - name: download ghost
+      get_url: url=https://ghost.org/zip/ghost-0.4.2.zip

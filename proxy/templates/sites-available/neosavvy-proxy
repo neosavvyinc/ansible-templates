@@ -39,15 +39,17 @@ server {
         }
 
 }
+
 server {
 	listen 80;
-        server_name vm3.neosavvy.com;
+	server_name stash.neosavvy.com;
 
         location / {
-	    proxy_pass http://vm3.neosavvy.local;
+            proxy_pass http://stash.neosavvy.local:7990/;
         }
 
-}
+        client_max_body_size 125m;
+   }
 
 #
 # Phantom Servers
@@ -57,7 +59,7 @@ server {
         server_name api.phantom.neosavvy.com;
 
         location / {
-	    client_max_body_size 2M;
+	    client_max_body_size 3M;
 	    proxy_pass http://api.phantom.neosavvy.local;
         }
 
