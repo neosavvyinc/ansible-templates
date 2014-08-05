@@ -1,0 +1,32 @@
+- hosts: stash
+
+  tasks:
+    - name: install pycurl
+      action: apt pkg=python-pycurl state=present
+
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
+
+    - name: add java repository
+      apt_repository: repo='ppa:webupd8team/java'
+
+    - name: accept java license
+      command: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+
+    - name: set java license as seen 
+      command: echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+
+    - name: install java
+      action: apt pkg=oracle-java7-installer state=present
+
+    - name: update-java-alternatives
+      command: update-java-alternatives -s java-7-oracle
+
+    - name: install git
+      action: apt pkg=git state=present
+
+    - name: install nmap
+      action: apt pkg=nmap state=present
+
+    - name: install mysql
+      action: apt pkg=mysql-server state=present

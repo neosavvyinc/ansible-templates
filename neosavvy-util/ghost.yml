@@ -1,0 +1,18 @@
+- hosts: neosavvy-util
+
+  tasks:
+    - name: download ghost
+      get_url: url=https://ghost.org/zip/ghost-0.4.2.zip dest=/opt/ghost-0.4.2.zip
+
+    - name: install tar
+      get_url: url=http://nodejs.org/dist/v0.10.23/node-v0.10.23-linux-x64.tar.gz dest=/tmp/node.tar.gz
+
+    - name: untar
+      action: command tar zxvf /tmp/node.tar.gz -C /opt/
+
+    - name: symlink the /opt/node directory to the untar'd one
+      file: src=/opt/node-v0.10.23-linux-x64 dest=/opt/node state=link
+
+    - shell: unzip /opt/ghost-0.4.2.zip -d /opt/ghost/ 
+
+    - npm: path=/opt/ghost
