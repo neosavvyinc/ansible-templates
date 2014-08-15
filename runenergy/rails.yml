@@ -1,0 +1,26 @@
+- hosts: runenergy
+
+  tasks:
+    - name: install curl
+      apt: pkg=curl state=present
+
+    - name: get rvm using curl
+      command: curl -L https://get.rvm.io | bash -s stable
+
+    - name: source for rvm
+      command: source /etc/profile.d/rvm.sh
+
+    - name: rvm requirements
+      command: rvm requirements
+
+    - name: install ruby via rvm
+      command: rvm install ruby-2.0.0-p0
+
+    - name: set default ruby version via rvm
+      command: rvm --default use 2.0.0-p0
+
+    - name: current ruby gems
+      command: rvm rubygems current
+
+    - name: install rails
+      command: gem install rails

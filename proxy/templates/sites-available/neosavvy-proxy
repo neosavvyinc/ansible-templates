@@ -84,10 +84,46 @@ server {
 }
 server {
 	listen 80;
-        server_name vm1.neosavvy.com;
+        server_name adam.neosavvy.com;
 
         location / {
-	    proxy_pass http://vm1.neosavvy.local;
+	    proxy_pass http://wiki.neosavvy.local:2000;
+        }
+
+}
+server {
+	listen 80;
+        server_name trevor.neosavvy.com;
+
+        location / {
+	    proxy_pass http://wiki.neosavvy.local:2001;
+        }
+
+}
+server {
+	listen 80;
+        server_name chris.neosavvy.com;
+
+        location / {
+	    proxy_pass http://wiki.neosavvy.local:2002;
+        }
+
+}
+server {
+	listen 80;
+        server_name pablo.neosavvy.com;
+
+        location / {
+	    proxy_pass http://wiki.neosavvy.local:2003;
+        }
+
+}
+server {
+	listen 80;
+        server_name sushi.neosavvy.com;
+
+        location / {
+	    proxy_pass http://wiki.neosavvy.local:2004;
         }
 
 }
@@ -120,6 +156,18 @@ server {
 
         client_max_body_size 125m;
    }
+
+#
+# Bittorrent Sync
+#
+server {
+	listen 80;
+	server_name btsync.neosavvy.com;
+
+	location / {
+	   proxy_pass http://wiki.neosavvy.local:8888/;   
+	}
+}
 
 #
 # Phantom Servers
