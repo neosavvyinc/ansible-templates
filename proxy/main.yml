@@ -7,6 +7,10 @@
       action: apt pkg=nginx-extras-dbg state=present
     - name: copy etc hosts file
       copy: src=/etc/hosts dest=/etc/hosts
+    - name: Copy shoutout SSL cert
+      copy: src=shoutout.crt dest=/etc/nginx/shoutout.crt
+    - name: Copy shoutout SSL key
+      copy: src=shoutout.key dest=/etc/nginx/shoutout.key
     - name: copy the sites-available template
       copy: src=templates/ dest=/etc/nginx/
     - name: enable the neosavvy-proxy
