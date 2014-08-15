@@ -82,51 +82,7 @@ server {
         }
 
 }
-server {
-	listen 80;
-        server_name adam.neosavvy.com;
 
-        location / {
-	    proxy_pass http://wiki.neosavvy.local:2000;
-        }
-
-}
-server {
-	listen 80;
-        server_name trevor.neosavvy.com;
-
-        location / {
-	    proxy_pass http://wiki.neosavvy.local:2001;
-        }
-
-}
-server {
-	listen 80;
-        server_name chris.neosavvy.com;
-
-        location / {
-	    proxy_pass http://wiki.neosavvy.local:2002;
-        }
-
-}
-server {
-	listen 80;
-        server_name pablo.neosavvy.com;
-
-        location / {
-	    proxy_pass http://wiki.neosavvy.local:2003;
-        }
-
-}
-server {
-	listen 80;
-        server_name sushi.neosavvy.com;
-
-        location / {
-	    proxy_pass http://wiki.neosavvy.local:2004;
-        }
-
-}
 server {
 	listen 80;
         server_name wiki.neosavvy.com;
@@ -203,6 +159,10 @@ server {
 
 server {
     listen 443;
+
+    access_log logs/phantom.access;
+    error_log logs/phantom.error error;
+
     server_name api.phantom.neosavvy.com;
 
     ssl on;
