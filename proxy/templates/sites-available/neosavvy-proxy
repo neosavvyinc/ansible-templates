@@ -160,8 +160,8 @@ server {
 server {
     listen 443;
 
-    access_log logs/phantom.access;
-    error_log logs/phantom.error error;
+    access_log /var/log/nginx/phantom.access;
+    error_log /var/log/nginx/phantom.error error;
 
     server_name api.phantom.neosavvy.com;
 
