@@ -1,0 +1,8 @@
+server {
+	listen 80;
+	server_name cadence.v1.neosavvy.local;
+        location / {
+            /opt/cadence-client/
+        }
+
+}

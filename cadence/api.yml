@@ -1,0 +1,11 @@
+- hosts: 192.168.1.80
+
+  tasks:
+    - name: install python-mysqldb
+      action: apt pkg=python-mysqldb state=present
+    - name: install mysql
+      action: apt pkg=mysql-server state=present
+    - name: create phantom
+      mysql_db: name=phantom state=present
+    - name: create phantom_test
+      mysql_db: name=phantom_test state=present
