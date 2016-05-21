@@ -1,0 +1,35 @@
+- hosts: sylo
+
+  tasks:
+    - name: install nginx
+      action: apt pkg=nginx state=present
+    - name: copy the sites-available template
+      copy: src=templates/ dest=/etc/nginx/
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
+    - name: enable the sylo
+      file: src=/etc/nginx/sites-available/sylo dest=/etc/nginx/sites-enabled/sylo state=link
+    - name: disable the default from enabled 
+      file: dest=/etc/nginx/sites-enabled/default state=absent
+    - name: copy the simple index site
+      copy: src=site/sylo dest=/opt/
+    - name: make an app directory
+      file: dest=/opt/sylo-app state=directory
+
+    - name: copy the deployment file
+      copy: src=sylo.tar.gz dest=/opt/sylo-app/
+
+    - name: copy the node modules deployment file
+      copy: src=node_modules.tar dest=/opt/sylo-app/
+    
+    - name: restart nginx
+      action: service name=nginx state=restarted
+
+    - name: install tar
+      get_url: url=https://nodejs.org/dist/v4.4.4/node-v4.4.4-linux-x64.tar.xz dest=/tmp/node.tar.gz
+
+    - name: untar
+      action: command tar xvf /tmp/node.tar.gz -C /opt/
+
+    - name: symlink the /opt/node directory to the untar'd one
+      file: src=/opt/node-v4.4.4-linux-x64 dest=/opt/node state=link

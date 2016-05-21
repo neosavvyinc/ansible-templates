@@ -1,0 +1,15 @@
+server {
+        listen 80;
+        server_name sylo.neosavvy.local;
+
+
+        location / {
+            proxy_pass  http://localhost:8000/;
+        }
+
+        location /dist {
+            autoindex  on;
+            root /opt/sylo-app/;
+        }
+
+}

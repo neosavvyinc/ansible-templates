@@ -1,0 +1,17 @@
+- hosts: fitme
+
+  tasks:
+    - name: install nginx
+      action: apt pkg=nginx state=present
+    - name: copy the sites-available template
+      copy: src=templates/ dest=/etc/nginx/
+    - name: copy etc hosts file
+      copy: src=/etc/hosts dest=/etc/hosts
+    - name: enable the muscles
+      file: src=/etc/nginx/sites-available/muscles dest=/etc/nginx/sites-enabled/muscles state=link
+    - name: disable the default from enabled 
+      file: dest=/etc/nginx/sites-enabled/default state=absent
+    - name: copy the simple index site
+      copy: src=site/muscles dest=/opt/
+    - name: restart nginx
+      action: service name=nginx state=restarted
